@@ -84,20 +84,22 @@ score_2 = 0
 while True:
     screen.update()
 
-    ball.setx(ball.xcor() + ball.dx)
-    ball.sety(ball.ycor() + ball.dy)
+    ball.setx(ball.xcor() + (ball.dx/2))
+    ball.sety(ball.ycor() + (ball.dy/2))
 
+    # Colision with the upper wall
     if ball.ycor() > 290:
         #os.system("afplay bounce.wav&")
         ball.sety(290)
         ball.dy *= -1
 
-    #colisão com parede inferior
+    # Colision with the lower wall
     if ball.ycor() < -280:
         #os.system("afplay bounce.wav&")
         ball.sety(-280)
         ball.dy *= -1
 
+    # Colision with the left wall
     if ball.xcor() < -390:
         score_2 += 1
         hud.clear()
@@ -105,7 +107,7 @@ while True:
         ball.goto(0, 0)
         ball.dx *= -1
 
-    #colisão com parede direita
+    # Colision with the right wall
     if ball.xcor() > 390:
         score_1 += 1
         hud.clear()
@@ -113,10 +115,12 @@ while True:
         ball.goto(0, 0)
         ball.dx *= -1
 
+    # Colision with the paddle 1
     if ball.xcor() < -330 and ball.ycor() < paddle_1.ycor() + 50 and ball.ycor() > paddle_1.ycor() - 50:
         ball.dx *= -1
 
-    # colisão com raquete 2
+    # Colision with the paddle 2
     if ball.xcor() > 330 and ball.ycor() < paddle_2.ycor() + 50 and ball.ycor() > paddle_2.ycor() - 50:
         ball.dx *= -1
+        
 turtle.done()

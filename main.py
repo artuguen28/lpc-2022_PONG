@@ -1,4 +1,5 @@
 import turtle
+import time
 
 screen = turtle.Screen()
 screen.title("My Pong")
@@ -26,6 +27,7 @@ ball = turtle.Turtle()
 ball.speed(0)
 ball.shape('circle')
 ball.color("blue")
+ball.hideturtle()
 ball.penup()
 ball.goto(0, 0)
 ball.dx = 1
@@ -39,6 +41,17 @@ hud.penup()
 hud.hideturtle()
 hud.goto(0, 260)
 hud.write("0 : 0", align="center", font=("Arial", 24, "normal"))
+
+start_screen = turtle.Turtle()
+start_screen.speed(0)
+start_screen.color("white")
+start_screen.penup()
+start_screen.hideturtle()
+start_screen.goto(0, 0)
+
+start_p = False
+score_1 = 0
+score_2 = 0
 
 def paddle_1_up():
     y = paddle_1.ycor()
@@ -72,17 +85,27 @@ def paddle_2_down():
         y = -250
     paddle_2.sety(y)
 
+def start_game():
+    global start_p
+    start_p = True
+    print("Evento")
+
+
 screen.listen()
 screen.onkeypress(paddle_1_up, "w")
 screen.onkeypress(paddle_1_down, "s")
 screen.onkeypress(paddle_2_up, "Up")
 screen.onkeypress(paddle_2_down, "Down")
+screen.onkeypress(start_game, "space")
 
-score_1 = 0
-score_2 = 0
 
 while True:
     screen.update()
+    
+    while not(start_p):
+        start_screen.write("Press 'space' to start", align="center", font=("Arial", 24, "normal"))
+    ball.showturtle()
+    start_screen.clear()
 
     ball.setx(ball.xcor() + (ball.dx/2))
     ball.sety(ball.ycor() + (ball.dy/2))

@@ -30,10 +30,8 @@ ball.color("blue")
 ball.hideturtle()
 ball.penup()
 ball.goto(0, 0)
-ball.dx = 4
-ball.dy = 4
-Right = True    # variable that defines whether the ball is going to the right
-speed = 0       # sets the speed increase of the ball
+ball.dx = 1
+ball.dy = 1
 
 hud = turtle.Turtle()
 hud.speed(0)
@@ -47,14 +45,14 @@ hud.write("0 : 0", align="center", font=("Bodoni MT Black", 24, "normal"))
 # Writing "Player 1" on the screen
 player1 = turtle.Turtle()
 player1.hideturtle()
-player1.goto(-240, 260)
+player1.goto(-240,260)
 player1.pencolor("green")
 player1.write("Player 1", align="left", font=("Bodoni MT Black", 24, "normal"))
 
 # Writing "Player 2" on the screen
 player2 = turtle.Turtle()
 player2.hideturtle()
-player2.goto(240, 260)
+player2.goto(240,260)
 player2.pencolor("green")
 player2.write(" Player 2", align="right", font=("Bodoni MT Black", 24, "normal"))
 
@@ -69,7 +67,6 @@ start_p = False
 score_1 = 0
 score_2 = 0
 
-
 def paddle_1_up():
     y = paddle_1.ycor()
     if y < 250:
@@ -77,7 +74,6 @@ def paddle_1_up():
     else:
         y = 250
     paddle_1.sety(y)
-
 
 def paddle_1_down():
     y = paddle_1.ycor()
@@ -87,7 +83,6 @@ def paddle_1_down():
         y = -250
     paddle_1.sety(y)
 
-
 def paddle_2_up():
     y = paddle_2.ycor()
     if y < 250:
@@ -96,7 +91,6 @@ def paddle_2_up():
         y = 250
     paddle_2.sety(y)
 
-
 def paddle_2_down():
     y = paddle_2.ycor()
     if y > -250:
@@ -104,7 +98,6 @@ def paddle_2_down():
     else:
         y = -250
     paddle_2.sety(y)
-
 
 def start_game():
     global start_p
@@ -123,53 +116,36 @@ screen.onkeypress(start_game, "space")
 while True:
     screen.update()
     
-    while not start_p:
+    while not(start_p):
         start_screen.write("Press 'space' to start", align="center", font=("Bodoni MT Black", 24, "normal"))
     ball.showturtle()
     start_screen.clear()
 
-    ball.setx(ball.xcor() + (ball.dx) + speed)
-    ball.sety(ball.ycor() + (ball.dy))
-    time.sleep(0.01)
-
-    # speed limit
-    if speed >= 6:
-        speed = 6
-    if speed <= -6:
-        speed = -6
+    ball.setx(ball.xcor() + (ball.dx/2))
+    ball.sety(ball.ycor() + (ball.dy/2))
 
     # Colision with the upper wall
     if ball.ycor() > 250:
-        # os.system("afplay bounce.wav&")
+        #os.system("afplay bounce.wav&")
         ball.sety(250)
         ball.dy *= -1
 
     # Colision with the lower wall
     if ball.ycor() < -280:
-        # os.system("afplay bounce.wav&")
+        #os.system("afplay bounce.wav&")
         ball.sety(-280)
         ball.dy *= -1
 
     # Colision with the paddle 1
-    if ball.xcor() < -330 and ball.ycor() < paddle_1.ycor() + 50 and ball.ycor() > paddle_1.ycor() - 50 and Right == False:
-        Right = True    # variable becomes "True" when it collides with the left wall
-        speed *= -1     # reverses speed to be compatible with "ball.dx"
-        speed += 0.5    # increases the speed to the corect direction after reverse the speed
+    if ball.xcor() < -330 and ball.ycor() < paddle_1.ycor() + 50 and ball.ycor() > paddle_1.ycor() - 50:
         ball.dx *= -1
 
     # Colision with the paddle 2
-    if ball.xcor() > 330 and ball.ycor() < paddle_2.ycor() + 50 and ball.ycor() > paddle_2.ycor() - 50 and Right == True:
-        Right = False   # variable becomes "False" when it collides with the right wall
-        speed *= -1     # reverses speed to be compatible with "ball.dx"
-        speed -= 0.5    # increases the speed to the corect direction after reverse the speed
+    if ball.xcor() > 330 and ball.ycor() < paddle_2.ycor() + 50 and ball.ycor() > paddle_2.ycor() - 50:
         ball.dx *= -1
 
     # Colision with the left wall
     if ball.xcor() < -390:
-        Right = True
-        speed = 0
-        ball.dx = -4
-        ball.dy = -4
         score_2 += 1
         hud.clear()
         hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
@@ -179,17 +155,13 @@ while True:
         if score_2 > 5:
             p2win = turtle.Turtle()  
             p2win.hideturtle()
-            p2win.goto(0, 0)
+            p2win.goto(0,0)
             p2win.pencolor("yellow")
-            p2win.write("Player 2 wins", align = "center", font = ("Bodoni MT Black", 35))
+            p2win.write("Player 2 wins", align="center", font=("Bodoni MT Black", 35))
             break
 
     # Colision with the right wall
     if ball.xcor() > 390:
-        Right = False
-        speed = 0
-        ball.dx = 4
-        ball.dy = 4
         score_1 += 1
         hud.clear()
         hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
@@ -199,9 +171,9 @@ while True:
         if score_1 > 5:
             p1win = turtle.Turtle()
             p1win.hideturtle()
-            p1win.goto(0, 0)
+            p1win.goto(0,0)
             p1win.pencolor("yellow")
-            p1win.write("Player 1 wins", align="center", font=("Bodoni MT Black", 35))
+            p1win.write("Player 1 wins", align="center", font=("Bodoni MT Black", 35)) 
             break
 
 turtle.done()

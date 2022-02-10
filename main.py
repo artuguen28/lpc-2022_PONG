@@ -1,13 +1,13 @@
 import turtle
 import time
 import random
+from random import randint 
 
 screen = turtle.Screen()
 screen.title("My Pong")
 screen.bgcolor("Black")
 screen.setup(width=800, height=600)
 screen.tracer(0)
-
 
 placar = turtle.Turtle()
 placar.hideturtle()
@@ -100,9 +100,7 @@ start_rec.forward(300)
 start_rec.left(90)
 start_rec.hideturtle()
 
-
 start_p = False
-
 
 def paddle_1_up():
     y = paddle_1.ycor()
@@ -112,7 +110,6 @@ def paddle_1_up():
         y = 250
     paddle_1.sety(y)
 
-
 def paddle_1_down():
     y = paddle_1.ycor()
     if y > -250:
@@ -120,7 +117,6 @@ def paddle_1_down():
     else:
         y = -250
     paddle_1.sety(y)
-
 
 def paddle_2_up():
     y = paddle_2.ycor()
@@ -131,7 +127,6 @@ def paddle_2_up():
             y = 250
     paddle_2.sety(y)
 
-
 def paddle_2_down():
     y = paddle_2.ycor()
     global bot
@@ -141,7 +136,6 @@ def paddle_2_down():
         else:
             y = -250
     paddle_2.sety(y)
-
 
 def start_game():
     global start_p
@@ -192,21 +186,20 @@ screen.onkeypress(IA_difficulty_medium, "2")
 screen.onkeypress(IA_difficulty_hard, "3")
 screen.onkeypress(IA_difficulty_insane, "4")
 
-
 while True:
     screen.update()
-
+    turtle.colormode(255)
     while not start_p:
         score_1 = 0
         score_2 = 0
         hud.clear()
         hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
-        start_screen.goto(0,100)
-        start_screen.color("yellow")
-        start_screen.write(" MY PONG GAME", align="center", font=("Bodoni MT Black", 33, "normal"))
+        start_screen.goto(2,100)
+        start_screen.color(randint(0, 255),randint(0, 255),randint(0, 255))
+        start_screen.write("MY PONG GAME", align="center", font=("Bodoni MT Black", 34, "normal"))
         start_screen.goto(0,-94)
         start_screen.color("white")
-        start_screen.write("(Space) - Multiplayer\n(1) - Easy\n(2) - Medium\n(3) - Hard\n(4) - Insane", align="center", font=("Bodoni MT Black", 24, "normal"))
+        start_screen.write("(Space) - Multiplayer\n(1) - Easy\n(2) - Medium\n(3) - Hard\n(4) - Insane", align="center", font=("Bodoni MT Black", 25, "normal"))
     start_rec.clear()
     ball.showturtle()
     start_screen.clear()
@@ -214,7 +207,6 @@ while True:
     ball.setx(ball.xcor() + (ball.dx) + hspeed)
     ball.sety(ball.ycor() + (ball.dy))
     time.sleep(0.01)
-
 
     # speed limit
     if hspeed >= 6:

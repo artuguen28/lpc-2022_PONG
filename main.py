@@ -69,8 +69,6 @@ start_screen.hideturtle()
 start_screen.goto(0, 0)
 
 start_p = False
-score_1 = 0
-score_2 = 0
 
 
 def paddle_1_up():
@@ -166,6 +164,11 @@ while True:
     screen.update()
 
     while not start_p:
+        score_1 = 0
+        score_2 = 0
+        
+        hud.clear()
+        hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
         start_screen.write("Press 'space' to start", align="center", font=("Bodoni MT Black", 24, "normal"))
     ball.showturtle()
     start_screen.clear()
@@ -233,7 +236,9 @@ while True:
             p2win.goto(0, 0)
             p2win.pencolor("yellow")
             p2win.write("Player 2 wins", align="center", font=("Bodoni MT Black", 35))
-            break
+            time.sleep(3)
+            p2win.clear()
+            start_p = False  # Reset the game
 
     # Colision with the right wall
     if ball.xcor() > 390:
@@ -253,7 +258,9 @@ while True:
             p1win.goto(0, 0)
             p1win.pencolor("yellow")
             p1win.write("Player 1 wins", align="center", font=("Bodoni MT Black", 35))
-            break
+            time.sleep(3)
+            p1win.clear()
+            start_p = False # Reset the game 
 
     # Bot IA
     if Right == True and bot == True:

@@ -66,7 +66,23 @@ start_screen.speed(0)
 start_screen.color("white")
 start_screen.penup()
 start_screen.hideturtle()
-start_screen.goto(0, 0)
+start_screen.goto(5, -65)
+
+start_rec = turtle.Turtle()
+start_rec.speed(100)
+start_rec.goto(-230, -130)
+start_rec.color("white")
+
+start_rec.forward(460)
+start_rec.left(90)
+start_rec.forward(300) 
+start_rec.left(90)  
+start_rec.forward(460)  
+start_rec.left(90)  
+start_rec.forward(300)  
+start_rec.left(90)
+start_rec.hideturtle()
+
 
 start_p = False
 
@@ -166,10 +182,10 @@ while True:
     while not start_p:
         score_1 = 0
         score_2 = 0
-        
         hud.clear()
         hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
-        start_screen.write("Press 'space' to start", align="center", font=("Bodoni MT Black", 24, "normal"))
+        start_screen.write("(Space) - Multiplayer\n(1) - Easy\n(2) - Medium\n(3) - Hard\n(4) - Insane", align="center", font=("Bodoni MT Black", 24, "normal"))
+    start_rec.clear()
     ball.showturtle()
     start_screen.clear()
 
@@ -238,6 +254,7 @@ while True:
             p2win.write("Player 2 wins", align="center", font=("Bodoni MT Black", 35))
             time.sleep(3)
             p2win.clear()
+            ball.clear()
             start_p = False  # Reset the game
 
     # Colision with the right wall
@@ -260,6 +277,7 @@ while True:
             p1win.write("Player 1 wins", align="center", font=("Bodoni MT Black", 35))
             time.sleep(3)
             p1win.clear()
+            ball.clear()
             start_p = False # Reset the game 
 
     # Bot IA

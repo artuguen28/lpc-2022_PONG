@@ -1,7 +1,7 @@
 import turtle
 import time
 import random
-from random import randint 
+from random import randint
 
 screen = turtle.Screen()
 screen.title("My Pong")
@@ -12,7 +12,7 @@ screen.tracer(0)
 placar = turtle.Turtle()
 placar.hideturtle()
 placar.penup()
-placar.goto(249,259)
+placar.goto(249, 259)
 placar.pendown()
 placar.pensize(3)
 placar.color("white")
@@ -40,12 +40,12 @@ paddle_2.color("cyan")
 paddle_2.shapesize(stretch_wid=5, stretch_len=1)
 paddle_2.penup()
 paddle_2.goto(350, 0)
-bot = False     #variable that defines if bot is active or not
-distance = 0    #variable that defines the margin of error of the bot
+bot = False  # variable that defines if bot is active or not
+distance = 0  # variable that defines the margin of error of the bot
 
 ball = turtle.Turtle()
 ball.speed(0)
-ball.shape('circle')
+ball.shape("circle")
 ball.color("blue violet")
 ball.hideturtle()
 ball.penup()
@@ -92,15 +92,16 @@ start_rec.color("white")
 
 start_rec.forward(460)
 start_rec.left(90)
-start_rec.forward(300) 
-start_rec.left(90)  
-start_rec.forward(460)  
-start_rec.left(90)  
-start_rec.forward(300)  
+start_rec.forward(300)
+start_rec.left(90)
+start_rec.forward(460)
+start_rec.left(90)
+start_rec.forward(300)
 start_rec.left(90)
 start_rec.hideturtle()
 
 start_p = False
+
 
 def paddle_1_up():
     y = paddle_1.ycor()
@@ -110,6 +111,7 @@ def paddle_1_up():
         y = 250
     paddle_1.sety(y)
 
+
 def paddle_1_down():
     y = paddle_1.ycor()
     if y > -250:
@@ -118,24 +120,27 @@ def paddle_1_down():
         y = -250
     paddle_1.sety(y)
 
+
 def paddle_2_up():
     y = paddle_2.ycor()
-    if bot == False:
+    if not(bot):
         if y < 250:
             y += 30
         else:
             y = 250
     paddle_2.sety(y)
 
+
 def paddle_2_down():
     y = paddle_2.ycor()
     global bot
-    if bot == False:
+    if not(bot):
         if y > -250:
             y += -30
         else:
             y = -250
     paddle_2.sety(y)
+
 
 def start_game():
     global start_p
@@ -145,35 +150,39 @@ def start_game():
 
 def IA_difficulty_easy():
     global start_p, distance, bot
-    if start_p == False:
+    if not(start_p):
         distance = 75
         bot = True
         print("Easy")
     start_p = True
 
+
 def IA_difficulty_medium():
     global start_p, distance, bot
-    if start_p == False:
+    if not(start_p):
         distance = 70
         bot = True
         print("Medium")
     start_p = True
 
+
 def IA_difficulty_hard():
     global start_p, distance, bot
-    if start_p == False:
+    if not(start_p):
         distance = 65
         bot = True
         print("Hard")
     start_p = True
 
+
 def IA_difficulty_insane():
     global start_p, distance, bot
-    if start_p == False:
-        distance = 59   #the smallest possible margin of error, below that, AI becomes impossible
+    if not(start_p):
+        distance = 59  # the smallest possible margin of error, below that, AI becomes impossible
         bot = True
         print("insane")
     start_p = True
+
 
 screen.listen()
 screen.onkeypress(paddle_1_up, "w")
@@ -193,13 +202,23 @@ while True:
         score_1 = 0
         score_2 = 0
         hud.clear()
-        hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
-        start_screen.goto(2,100)
-        start_screen.color(randint(0, 255),randint(0, 255),randint(0, 255))
-        start_screen.write("MY PONG GAME", align="center", font=("Bodoni MT Black", 34, "normal"))
-        start_screen.goto(0,-94)
+        hud.write(
+            "{} : {}".format(score_1, score_2),
+            align="center",
+            font=("Press Start 2P", 24, "normal"),
+        )
+        start_screen.goto(2, 100)
+        start_screen.color(randint(0, 255), randint(0, 255), randint(0, 255))
+        start_screen.write(
+            "MY PONG GAME", align="center", font=("Bodoni MT Black", 34, "normal")
+        )
+        start_screen.goto(0, -94)
         start_screen.color("white")
-        start_screen.write("(Space) - Multiplayer\n(1) - Easy\n(2) - Medium\n(3) - Hard\n(4) - Insane", align="center", font=("Bodoni MT Black", 25, "normal"))
+        start_screen.write(
+            "(Space) - Multiplayer\n(1) - Easy\n(2) - Medium\n(3) - Hard\n(4) - Insane",
+            align="center",
+            font=("Bodoni MT Black", 25, "normal"),
+        )
     start_rec.clear()
     ball.showturtle()
     start_screen.clear()
@@ -227,21 +246,35 @@ while True:
         ball.dy *= -1
 
     # Colision with the paddle 1
-    if ball.xcor() < -330 and ball.ycor() < paddle_1.ycor() + 55 and ball.ycor() > paddle_1.ycor() - 55 and Right == False:
+    if (
+        ball.xcor() < -330
+        and ball.ycor() < paddle_1.ycor() + 55
+        and ball.ycor() > paddle_1.ycor() - 55
+        and not(Right)
+    ):
         Right = True  # variable becomes "True" when it collides with the left wall
         hspeed *= -1  # reverses speed to be compatible with "ball.dx"
-        hspeed += 0.5  # increases the speed to the corect direction after reverse the speed
+        hspeed += (
+            0.5  # increases the speed to the corect direction after reverse the speed
+        )
         ball.dx *= -1
         if ball.dy < 0:
-            ball.dy = -random.choice([1, 2, 3, 4]) # chooses a "ball.dy" randomly
+            ball.dy = -random.choice([1, 2, 3, 4])  # chooses a "ball.dy" randomly
         else:
             ball.dy = random.choice([1, 2, 3, 4])
 
     # Colision with the paddle 2
-    if ball.xcor() > 330 and ball.ycor() < paddle_2.ycor() + 55 and ball.ycor() > paddle_2.ycor() - 55 and Right == True:
+    if (
+        ball.xcor() > 330
+        and ball.ycor() < paddle_2.ycor() + 55
+        and ball.ycor() > paddle_2.ycor() - 55
+        and Right
+    ):
         Right = False  # variable becomes "False" when it collides with the right wall
         hspeed *= -1  # reverses speed to be compatible with "ball.dx"
-        hspeed -= 0.5  # increases the speed to the corect direction after reverse the speed
+        hspeed -= (
+            0.5  # increases the speed to the corect direction after reverse the speed
+        )
         ball.dx *= -1
         if ball.dy < 0:
             ball.dy = -random.choice([1, 2, 3, 4])
@@ -256,7 +289,11 @@ while True:
         ball.dy = -random.choice([1, 2, 3, 4])
         score_2 += 1
         hud.clear()
-        hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
+        hud.write(
+            "{} : {}".format(score_1, score_2),
+            align="center",
+            font=("Press Start 2P", 24, "normal"),
+        )
         ball.goto(0, 0)
         ball.dx *= -1
         # Showing that player 2 won
@@ -279,7 +316,11 @@ while True:
         ball.dy = random.choice([1, 2, 3, 4])
         score_1 += 1
         hud.clear()
-        hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
+        hud.write(
+            "{} : {}".format(score_1, score_2),
+            align="center",
+            font=("Press Start 2P", 24, "normal"),
+        )
         ball.goto(0, 0)
         ball.dx *= -1
         # Showing that player 1 won
@@ -292,13 +333,13 @@ while True:
             time.sleep(3)
             p1win.clear()
             ball.clear()
-            start_p = False # Reset the game 
+            start_p = False  # Reset the game
 
     # Bot IA
-    if Right == True and bot == True:
+    if Right and bot:
         if ball.ycor() > paddle_2.ycor() + distance:
-                paddle_2.sety(paddle_2.ycor() + 30)
+            paddle_2.sety(paddle_2.ycor() + 30)
         elif ball.ycor() < paddle_2.ycor() - distance:
-                paddle_2.sety(paddle_2.ycor() - 30)
+            paddle_2.sety(paddle_2.ycor() - 30)
 
 turtle.done()

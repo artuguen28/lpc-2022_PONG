@@ -2,6 +2,9 @@ import turtle
 import time
 import random
 from random import randint
+from pygame import mixer
+
+mixer.init()
 
 screen = turtle.Screen()
 screen.title("My Pong")
@@ -235,13 +238,15 @@ while True:
 
     # Colision with the upper wall
     if ball.ycor() > 250:
-        # os.system("afplay bounce.wav&")
+        mixer.music.load("sounds/impact_snowball_hit_wall.mp3")
+        mixer.music.play()
         ball.sety(250)
         ball.dy *= -1
 
     # Colision with the lower wall
     if ball.ycor() < -280:
-        # os.system("afplay bounce.wav&")
+        mixer.music.load("sounds/impact_snowball_hit_wall.mp3")
+        mixer.music.play()
         ball.sety(-280)
         ball.dy *= -1
 
@@ -252,6 +257,9 @@ while True:
         and ball.ycor() > paddle_1.ycor() - 55
         and not(Right)
     ):
+        mixer.music.load(
+            "sounds/zapsplat_sport_squash_ball_catch_in_hand_001_17896.mp3")
+        mixer.music.play()
         Right = True  # variable becomes "True" when it collides with the left wall
         hspeed *= -1  # reverses speed to be compatible with "ball.dx"
         hspeed += (
@@ -270,6 +278,8 @@ while True:
         and ball.ycor() > paddle_2.ycor() - 55
         and Right
     ):
+        mixer.music.load("sounds/zapsplat_sport_squash_ball_catch_in_hand_001_17896.mp3")
+        mixer.music.play()
         Right = False  # variable becomes "False" when it collides with the right wall
         hspeed *= -1  # reverses speed to be compatible with "ball.dx"
         hspeed -= (

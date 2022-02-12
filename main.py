@@ -5,7 +5,11 @@ from random import randint
 from pygame import mixer
 
 mixer.init()
-
+impact = mixer.Sound("sounds/impact_snowball_hit_wall.mp3")
+impact_2 = mixer.Sound("sounds/zapsplat_sport_squash_ball_catch_in_hand_001_17896.mp3")
+mixer.music.load("ost/epic battle between 2 paddles.ogg")
+mixer.music.play(-1,0.0,0)
+mixer.music.pause()
 
 screen = turtle.Screen()
 screen.title("My Pong")
@@ -46,7 +50,7 @@ paddle_2.penup()
 paddle_2.goto(350, 0)
 bot = False  # variable that defines if bot is active or not
 distance = 0  # variable that defines the margin of error of the bot
-
+adapt = False
 
 ball = turtle.Turtle()
 ball.speed(0)
@@ -210,7 +214,6 @@ def IA_difficulty_adaptive():
         mixer.music.unpause()
     start_p = True
 
-
 screen.listen()
 screen.onkeypress(paddle_1_up, "w")
 screen.onkeypress(paddle_1_down, "s")
@@ -221,6 +224,7 @@ screen.onkeypress(IA_difficulty_easy, "1")
 screen.onkeypress(IA_difficulty_medium, "2")
 screen.onkeypress(IA_difficulty_hard, "3")
 screen.onkeypress(IA_difficulty_insane, "4")
+screen.onkeypress(IA_difficulty_adaptive, "5")
 
 while True:
     print(distance)
@@ -235,12 +239,15 @@ while True:
             align="center",
             font=("Press Start 2P", 24, "normal"),
         )
-
+        start_screen.goto(2, 115)
         start_screen.color(randint(0, 255), randint(0, 255), randint(0, 255))
         start_screen.write(
             "MY PONG GAME", align="center", font=("Bodoni MT Black", 34, "normal")
         )
-
+        start_screen.goto(0, -115)
+        start_screen.color("white")
+        start_screen.write(
+            "(Space) - Multiplayer\n(1) - Easy\n(2) - Medium\n(3) - Hard\n(4) - Insane\n(5) - Adaptive",
             align="center",
             font=("Bodoni MT Black", 25, "normal"),
         )
@@ -260,11 +267,13 @@ while True:
 
     # Colision with the upper wall
     if ball.ycor() > 250:
+        impact.play()
         ball.sety(250)
         ball.dy *= -1
 
     # Colision with the lower wall
     if ball.ycor() < -280:
+        impact.play()
         ball.sety(-280)
         ball.dy *= -1
 
@@ -275,6 +284,7 @@ while True:
         and ball.ycor() > paddle_1.ycor() - 55
         and not(Right)
     ):
+        impact_2.play()
         Right = True  # variable becomes "True" when it collides with the left wall
         hspeed *= -1  # reverses speed to be compatible with "ball.dx"
         hspeed += (
@@ -293,6 +303,7 @@ while True:
         and ball.ycor() > paddle_2.ycor() - 55
         and Right
     ):
+        impact_2.play()
         Right = False  # variable becomes "False" when it collides with the right wall
         hspeed *= -1  # reverses speed to be compatible with "ball.dx"
         hspeed -= (
@@ -340,6 +351,9 @@ while True:
             time.sleep(3)
             p2win.clear()
             ball.clear()
+            mixer.music.pause()
+            paddle_1.goto(-350, 0)
+            paddle_2.goto(350, 0)
             start_p = False  # Reset the game
 
     # Colision with the right wall
@@ -375,6 +389,9 @@ while True:
             time.sleep(3)
             p1win.clear()
             ball.clear()
+            mixer.music.pause()
+            paddle_1.goto(-350, 0)
+            paddle_2.goto(350, 0)
             start_p = False  # Reset the game
 
     # Bot IA
@@ -383,5 +400,13 @@ while True:
             paddle_2.sety(paddle_2.ycor() + 30)
         elif ball.ycor() < paddle_2.ycor() - distance:
             paddle_2.sety(paddle_2.ycor() - 30)
+
+    # Bot IA 2 (only delete the hashtags and enjoy :3)
+
+#    if not Right and bot:
+#        if ball.ycor() > paddle_1.ycor() + distance:
+#            paddle_1.sety(paddle_1.ycor() + 30)
+#        elif ball.ycor() < paddle_1.ycor() - distance:
+#            paddle_1.sety(paddle_1.ycor() - 30)
 
 turtle.done()

@@ -227,7 +227,6 @@ screen.onkeypress(IA_difficulty_insane, "4")
 screen.onkeypress(IA_difficulty_adaptive, "5")
 
 while True:
-    print(distance)
     screen.update()
     turtle.colormode(255)
     while not start_p:

@@ -227,6 +227,7 @@ screen.onkeypress(IA_difficulty_insane, "4")
 screen.onkeypress(IA_difficulty_adaptive, "5")
 
 while True:
+    print(distance)
     screen.update()
     turtle.colormode(255)
     while not start_p:
@@ -250,6 +251,19 @@ while True:
             align="center",
             font=("Bodoni MT Black", 25, "normal"),
         )
+
+        start_rec.goto(-230, -130)
+        start_rec.color("white")
+
+        start_rec.forward(460)
+        start_rec.left(90)
+        start_rec.forward(300)
+        start_rec.left(90)
+        start_rec.forward(460)
+        start_rec.left(90)
+        start_rec.forward(300)
+        start_rec.left(90)
+        start_rec.hideturtle()
     start_rec.clear()
     ball.showturtle()
     start_screen.clear()

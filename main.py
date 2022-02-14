@@ -236,6 +236,7 @@ screen.onkeypress(IA_difficulty_adaptive, "5")
 
 while True:
     screen.update()
+    ball.color("blue violet")
     turtle.colormode(255)
     while not start_p:
         score_1 = 0
@@ -387,7 +388,7 @@ while True:
             mixer.music.pause()
             paddle_1.goto(-350, 0)
             paddle_2.goto(350, 0)
-            start_p = False  # Reset the game
+            start_p = False # Reset the game
 
     # Colision with the right wall
     if ball.xcor() > 390:
@@ -430,6 +431,8 @@ while True:
             paddle_1.goto(-350, 0)
             paddle_2.goto(350, 0)
             start_p = False  # Reset the game
+    if score_1 > 5 or score_2 > 5:
+            ball.color("black")
 
     # Bot IA
     if Right and bot:

@@ -5,10 +5,13 @@ from random import randint
 from pygame import mixer
 
 mixer.init()
-impact = mixer.Sound("sounds/impact_snowball_hit_wall.mp3")
-impact_2 = mixer.Sound("sounds/zapsplat_sport_squash_ball_catch_in_hand_001_17896.mp3")
-mixer.music.load("ost/epic battle between 2 paddles.ogg")
-mixer.music.play(-1,0.0,0)
+sound1 = "sounds/impact_snowball_hit_wall.mp3"
+sound2 = "sounds/zapsplat_sport_squash_ball" \
+    "_catch_in_hand_001_17896.mp3"
+impact = mixer.Sound(sound1)
+impact_2 = mixer.Sound()
+mixer.music.load("ost/Epic battle between 2 paddles.ogg")
+mixer.music.play(-1, 0.0, 0)
 mixer.music.pause()
 
 screen = turtle.Screen()
@@ -85,7 +88,8 @@ player2 = turtle.Turtle()
 player2.hideturtle()
 player2.goto(240, 260)
 player2.pencolor("white")
-player2.write(" Player 2", align="right", font=("Bodoni MT Black", 24, "normal"))
+player2.write(" Player 2", align="right", font=(
+    "Bodoni MT Black", 24, "normal"))
 
 start_screen = turtle.Turtle()
 start_screen.speed(0)
@@ -132,7 +136,7 @@ def paddle_1_down():
 
 def paddle_2_up():
     y = paddle_2.ycor()
-    if not(bot):
+    if not (bot):
         if y < 250:
             y += 30
         else:
@@ -143,7 +147,7 @@ def paddle_2_up():
 def paddle_2_down():
     y = paddle_2.ycor()
     global bot
-    if not(bot):
+    if not (bot):
         if y > -250:
             y += -30
         else:
@@ -153,7 +157,7 @@ def paddle_2_down():
 
 def start_game():
     global start_p
-    if not(start_p):
+    if not (start_p):
         print("2 Players")
         mixer.music.rewind()
         mixer.music.unpause()
@@ -162,7 +166,7 @@ def start_game():
 
 def IA_difficulty_easy():
     global start_p, distance, bot
-    if not(start_p):
+    if not (start_p):
         distance = 75
         bot = True
         print("Easy")
@@ -173,7 +177,7 @@ def IA_difficulty_easy():
 
 def IA_difficulty_medium():
     global start_p, distance, bot
-    if not(start_p):
+    if not (start_p):
         distance = 70
         bot = True
         print("Medium")
@@ -184,7 +188,7 @@ def IA_difficulty_medium():
 
 def IA_difficulty_hard():
     global start_p, distance, bot
-    if not(start_p):
+    if not (start_p):
         distance = 65
         bot = True
         print("Hard")
@@ -195,17 +199,20 @@ def IA_difficulty_hard():
 
 def IA_difficulty_insane():
     global start_p, distance, bot
-    if not(start_p):
-        distance = 59  # the smallest possible margin of error, below that, AI becomes impossible
+    if not (start_p):
+        # the smallest possible margin of error,
+        # below that, AI becomes impossible
+        distance = 59
         bot = True
         print("insane")
         mixer.music.rewind()
         mixer.music.unpause()
     start_p = True
 
+
 def IA_difficulty_adaptive():
     global start_p, distance, bot, adapt
-    if not(start_p):
+    if not (start_p):
         distance = random.choice([60, 65, 70, 75, 80])
         adapt = True
         bot = True
@@ -213,6 +220,7 @@ def IA_difficulty_adaptive():
         mixer.music.rewind()
         mixer.music.unpause()
     start_p = True
+
 
 screen.listen()
 screen.onkeypress(paddle_1_up, "w")
@@ -241,12 +249,14 @@ while True:
         start_screen.goto(2, 115)
         start_screen.color(randint(0, 255), randint(0, 255), randint(0, 255))
         start_screen.write(
-            "MY PONG GAME", align="center", font=("Bodoni MT Black", 34, "normal")
+            "MY PONG GAME", align="center", font=(
+                "Bodoni MT Black", 34, "normal")
         )
         start_screen.goto(0, -115)
         start_screen.color("white")
         start_screen.write(
-            "(Space) - Multiplayer\n(1) - Easy\n(2) - Medium\n(3) - Hard\n(4) - Insane\n(5) - Adaptive",
+            "(Space) - Multiplayer\n(1) - Easy\n(2) - "
+            "Medium\n(3) - Hard\n(4) - Insane\n(5) - Adaptive",
             align="center",
             font=("Bodoni MT Black", 25, "normal"),
         )
@@ -294,17 +304,21 @@ while True:
         ball.xcor() < -330
         and ball.ycor() < paddle_1.ycor() + 55
         and ball.ycor() > paddle_1.ycor() - 55
-        and not(Right)
+        and not (Right)
     ):
         impact_2.play()
-        Right = True  # variable becomes "True" when it collides with the left wall
+        # variable becomes "True" when it collides with the left wall
+        Right = True
         hspeed *= -1  # reverses speed to be compatible with "ball.dx"
         hspeed += (
-            0.5  # increases the speed to the corect direction after reverse the speed
+            # increases the speed to the
+            # corect direction after reverse the speed
+            0.5
         )
         ball.dx *= -1
         if ball.dy < 0:
-            ball.dy = -random.choice([1, 2, 3, 4])  # chooses a "ball.dy" randomly
+            # chooses a "ball.dy" randomly
+            ball.dy = -random.choice([1, 2, 3, 4])
         else:
             ball.dy = random.choice([1, 2, 3, 4])
 
@@ -316,10 +330,14 @@ while True:
         and Right
     ):
         impact_2.play()
-        Right = False  # variable becomes "False" when it collides with the right wall
+        # variable becomes "False"
+        # when it collides with the right wall
+        Right = False
         hspeed *= -1  # reverses speed to be compatible with "ball.dx"
         hspeed -= (
-            0.5  # increases the speed to the corect direction after reverse the speed
+            # increases the speed to the corect
+            # direction after reverse the speed
+            0.5
         )
         ball.dx *= -1
         if ball.dy < 0:
@@ -359,7 +377,8 @@ while True:
             p2win.hideturtle()
             p2win.goto(0, 0)
             p2win.pencolor("yellow")
-            p2win.write("Player 2 wins", align="center", font=("Bodoni MT Black", 35))
+            p2win.write("Player 2 wins", align="center", font=(
+                "Bodoni MT Black", 35))
             time.sleep(3)
             p2win.clear()
             ball.clear()
@@ -378,7 +397,9 @@ while True:
         ball.dy = random.choice([1, 2, 3, 4])
         score_1 += 1
         if adapt and score_1 > score_2:
-            distance += random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])*(score_2 - score_1)
+            distance += random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) * (
+                score_2 - score_1
+            )
             if distance < 59:
                 distance = 59
         hud.clear()
@@ -389,6 +410,7 @@ while True:
         )
         ball.goto(0, 0)
         ball.dx *= -1
+
         # Showing that player 1 won
         if score_1 > 5:
             bot = False
@@ -397,7 +419,8 @@ while True:
             p1win.hideturtle()
             p1win.goto(0, 0)
             p1win.pencolor("yellow")
-            p1win.write("Player 1 wins", align="center", font=("Bodoni MT Black", 35))
+            p1win.write("Player 1 wins", align="center", font=(
+                "Bodoni MT Black", 35))
             time.sleep(3)
             p1win.clear()
             ball.clear()

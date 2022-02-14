@@ -9,7 +9,7 @@ sound1 = "sounds/impact_snowball_hit_wall.mp3"
 sound2 = "sounds/zapsplat_sport_squash_ball" \
     "_catch_in_hand_001_17896.mp3"
 impact = mixer.Sound(sound1)
-impact_2 = mixer.Sound()
+impact_2 = mixer.Sound(sound2)
 mixer.music.load("ost/Epic battle between 2 paddles.ogg")
 mixer.music.play(-1, 0.0, 0)
 mixer.music.pause()
@@ -358,7 +358,9 @@ while True:
             if distance == 80:
                 distance = 59
             elif score_1 < score_2:
-                distance += random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+                distance += random.choice([1, 2, 3, 4, 5]) * (
+                        score_2 - score_1
+                )
             if distance > 80:
                 distance = 80
         hud.clear()
@@ -397,7 +399,7 @@ while True:
         ball.dy = random.choice([1, 2, 3, 4])
         score_1 += 1
         if adapt and score_1 > score_2:
-            distance += random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) * (
+            distance += random.choice([1, 2, 3, 4, 5]) * (
                 score_2 - score_1
             )
             if distance < 59:

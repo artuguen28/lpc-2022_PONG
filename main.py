@@ -181,7 +181,7 @@ def ia_difficulty_easy():
 def ia_difficulty_medium():
     global start_p, distance, bot
     if not start_p:
-        distance = 70
+        distance = 67
         bot = True
         print("Medium")
         mixer.music.rewind()
@@ -192,7 +192,7 @@ def ia_difficulty_medium():
 def ia_difficulty_hard():
     global start_p, distance, bot
     if not start_p:
-        distance = 65
+        distance = 63
         bot = True
         print("Hard")
         mixer.music.rewind()
